@@ -6,4 +6,3 @@ Features of the Search Engine:
 --->Websites include Amazon,Flipcart,Paytm mall and Snapdeal.
 --->Visit to site button,provides direct redirection towards  the clicked website.
 --->User can see the reviews before he decides to buy.
-

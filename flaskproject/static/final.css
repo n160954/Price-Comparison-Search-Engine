@@ -1,0 +1,232 @@
+body {
+    background: url(https://besthqwallpapers.com/Uploads/16-10-2018/68983/microchip-neon-lines-black-background-chips-technology-backgrounds.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
+.fs-sm {
+    font-size: .875rem !important;
+}
+
+
+.bg-faded-accent {
+    background-color: rgba(78,84,200,0.09) !important;
+}
+.rounded-1 {
+    border-radius: .25rem !important;
+}
+.text-accent {
+    color: #4e54c8 !important;
+}
+.ci-search {
+  &:before {
+    content: "\e972";
+  }
+}
+
+.search-div {
+    margin: 5% 25%;
+}
+
+.btn-group-lg>.btn, .btn-lg{
+    border-radius: unset;
+}
+
+.product-image {
+    margin-left: 25%;
+}
+
+.product-card-alt .product-thumb-overlay, .product-card-alt .btn-wishlist, .product-card-alt .product-card-actions  {
+    position: absolute;
+    transition: all 0.15s ease-in-out;
+    opacity: 0;
+}
+
+.product-card-alt .product-card-actions {
+    top: 50%;
+    left: 0;
+    width: 100%;
+    transform: translateY(-50%);
+    text-align: center;
+    z-index: 5;
+    visibility: hidden;
+}
+
+
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1.5px solid rgba(0,0,0,0.085);
+    border-radius: .75rem;
+}
+
+.ci-eye:before {
+    content: "?";
+}
+
+.btn>i {
+    margin-top: -.1875rem;
+    vertical-align: middle;
+}
+
+[class^='ci-'], [class*=' ci-'] {
+    display: inline-block;
+    font-family: "cartzilla-icons" !important;
+    speak: never;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+}
+
+.product-card-alt .product-thumb {
+    position: relative;
+    border-radius: .4375rem;
+    overflow: hidden;
+    border: .5px solid rgba(0,0,0,0.085);
+}
+
+.product-card-alt .product-thumb-overlay, .product-card-alt .btn-wishlist, .product-card-alt .product-card-actions {
+    position: absolute;
+    transition: all 0.15s ease-in-out;
+    opacity: 0;
+}
+
+.product-card-alt .btn-wishlist {
+    top: .75rem;
+    right: .75rem;
+    background-color: #fff;
+    z-index: 5;
+    visibility: hidden;
+}
+
+.btn-wishlist.btn-sm, .btn-group-sm>.btn-wishlist.btn {
+    width: 2rem;
+    height: 2rem;
+}
+
+.product-thumb:hover .product-thumb-overlay, .product-thumb:hover .btn-wishlist, .product-thumb:hover .product-card-actions {
+     visibility: visible;
+     opacity: 1;
+}
+
+
+.product-card-alt .product-thumb-overlay, .product-card-alt .btn-wishlist, .product-card-alt .product-card-actions {
+    position: absolute;
+    transition: all 0.15s ease-in-out;
+    opacity: 0;
+}
+
+.product-card-alt .product-thumb-overlay {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(43,52,69,0.5);
+    z-index: 1;
+}
+
+.product-card-alt .product-thumb>img {
+    display: block;
+}
+
+img, figure {
+    vertical-align: middle;
+}
+
+.product-card-alt .card-body {
+    padding: 1rem .625rem;
+}
+
+.product-meta {
+    transition: color 0.25s ease-in-out;
+    color: #7d879c;
+    text-decoration: none !important;
+}
+
+.star-rating {
+    display: inline-block;
+    white-space: nowrap;
+    line-height: 1;
+    vertical-align: middle;
+}
+
+
+.star-rating .star-rating-icon.active {
+    color: #fea569;
+}
+
+.star-rating .star-rating-icon {
+    display: inline-block;
+    margin-right: .1875rem;
+    color: #aeb4be;
+    font-size: .75rem;
+    vertical-align: middle;
+}
+
+.product-title>a {
+    transition: color 0.25s ease-in-out;
+    color: #373f50;
+    text-decoration: none !important;
+}
+
+.product-title>a:hover {
+    color: #fe696a;
+  }
+
+
+.reviews-list {
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     align-items: center;
+}
+.reviews-list .review-card {
+ display: flex;
+ flex-direction: column;
+ justify-content: space-around;
+ width: 450px;
+ max-height: 250px;
+ min-height: 150px;
+ background: #2c2b3f;
+ border-radius: 10px;
+ margin: 10px 0px;
+}
+.reviews-list .review-card .review-header {
+ display: flex;
+ align-items: center;
+ justify-content: space-around;
+ color: #fff;
+ font-weight: bold;
+}
+.reviews-list .review-card .review-header .name-group {
+ display: flex;
+ align-items: center;
+}
+.reviews-list .review-card .review-header .name-group .initials {
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ width: 48px;
+ height: 48px;
+ margin-right: 12px;
+ border-radius: 50%;
+ background: #d56a6a;
+}
+.reviews-list .review-card .review-header .rating i {
+ color: #f3d779;
+}
+.reviews-list .review-card .review-description {
+ color: #fff;
+ font-weight: 400;
+ margin: 0px 45px;
+}

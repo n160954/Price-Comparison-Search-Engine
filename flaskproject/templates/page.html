@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Search & Compare</title>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="{{url_for('static',filename='final.css')}}" rel="stylesheet" media="screen">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+    <style>
+
+    @import url('https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap');
+    *{
+      font-family: 'Poppins', sans-serif;
+    }
+
+</style>
+
+</head>
+<body onload="clean()">
+
+<h1 class="text-white lh-base mt-3 text-center">Search & Compare</h1>
+
+<form action='/search' autocomplete='off' id='search-form' method="POST">
+<div class="col-lg-6 col-md-8 search-div">
+<div class="input-group input-group-lg flex-nowrap">
+<input class="form-control rounded-start" name='q' type="text" placeholder="Start your search">
+<input class="btn btn-primary btn-lg fs-base" type="submit" value="Search">
+</div>
+</div>
+</form>
+
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+{% for message in messages %}
+<div _ngcontent-xdr-c13="" class="alert alert-danger alert-danger text-center text-dark container" role="alert"> {{message}} </div>
+{% endfor %}
+{% endif %}
+{% endwith %}
+
+<section class="container-fluid pb-5 mb-lg-3">
+
+{% if len %}
+
+  {% for key,val in product_data.items() %}
+      <div class="d-flex flex-wrap justify-content-between align-items-center pt-1 border-bottom pb-4 mb-4">
+        <h2 class="h3 mb-0 pt-3 me-2" style="color: white">{{key}}</h2>
+      </div>
+
+      <div class="row pt-2 mx-n2">
+
+  {% for details in val %}
+        <div class="col-lg-3 col-md-4 col-sm-6 px-2 mb-grid-gutter">
+
+          <div class="card product-card-alt" id="{{details[1]}}">
+            <div class="product-thumb">
+
+              <div class="product-card-actions">
+              <div class="product-card-actions"><a class="btn btn-light btn-icon btn-shadow fs-base mx-2" href="{{details[0]}}">
+              <span class="material-icons">visibility</span></a>
+                <button class="btn btn-light btn-icon btn-shadow fs-base mx-2" type="button"
+                onclick='fetch_review({{ key|tojson }},{{ details[0]|tojson }})'>
+                <span class="material-icons">stars</span>
+            </button>
+              </div>
+              </div>
+              <a class="product-thumb-overlay" href="{{details[0]}}"></a>
+              <img src="{{details[3]}}" alt="Product" class="product-image">
+            </div>
+            <div class="card-body">
+              <h3 class="product-title fs-sm mb-2"><a href="{{details[0]}}">{{details[1]}}</a></h3>
+              <div class="d-flex flex-wrap justify-content-between align-items-center">
+                <div class="bg-faded-accent text-accent fs-sm me-2"><span class="material-icons" style="font-size: 14px">star_rate</span>{{details[4]}}<span class="fs-xs ms-1">&nbsp;Rating</span></div>
+                <div class="bg-faded-accent text-accent rounded-1 py-1 px-2"><i aria-hidden="true" class="fa fa-inr"></i>Rs.{{details[2]}}.<small>00</small></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    {% endfor %}
+{% endif %}
+</section>
+
+<button type="button" id="toggle_modal" style="display: none;" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
+
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" onclick="clean()">&times;</button>
+      </div>
+      <div class="modal-body">
+<div class="reviews-list" id="reviews-list"></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<script type="text/javascript">
+
+const clean = () => {
+var review_tag = document.getElementById('reviews-list');
+review_tag.innerHTML = `
+  <div class="alert alert-info alert-info text-center text-dark container" role="alert">Fetching Reviews, Please Wait...</div></div>`
+
+}
+
+const fetch_review = (company,url) => {
+
+document.getElementById('toggle_modal').click();
+(async () => {
+ const rawResponse = await fetch('/review', {
+   method: 'POST',
+   headers: {
+     'Accept': 'application/json',
+     'Content-Type': 'application/json'
+   },
+   body: JSON.stringify({"company": company, "url": url})
+ });
+ const content = await rawResponse.json();
+
+ var reviews = content["output"];
+ var card_html = "";
+
+ var review_tag = document.getElementById('reviews-list');
+
+ if (reviews.length < 1){
+  review_tag.innerHTML = `
+  <div class="alert alert-info alert-info text-center text-dark container" role="alert"> Sorry, No reviews Found. -_- </div></div>`
+  return
+ }
+
+ for (var i = reviews.length - 1; i >= 0; i--) {
+
+ card_html += `
+<div class="review-card">
+<div class="review-header">
+<div class="name-group">
+<div class="initials">A</div>
+<p>`+reviews[i][0]+`</p>
+</div>
+<div class="rating">
+<i id='one' class="fas fa-star"></i> `+reviews[i][1]+`
+</div>
+</div>
+<div class="review-description"><b>`+reviews[i][2].slice(0,60)+`...</b><br>`+reviews[i][3].slice(0,200)+`...
+</div>
+</div>
+ `
+ }
+
+ review_tag.innerHTML = card_html;
+
+})();
+
+}
+</script>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+</body>
+</html>
